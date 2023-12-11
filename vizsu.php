@@ -65,7 +65,9 @@
             <form action="vizsuver.php" method="POST">
                 <h1><?php echo $row["titlu"];?></h1>
                 <p class="des"><?php echo str_repeat('&nbsp;', 5); echo $row["descriere"];?></p>
-                <p class="link"><?php echo $row["link"]?></p>
+                <iframe width="420" height="315"
+                    src=<?php echo $row["link"]?>>
+                </iframe>
 
                 <input type="hidden" name="titlu" value="<?php echo $row["titlu"]; ?>">
                 <input type="hidden" name="descriere" value="<?php echo $row["descriere"]; ?>">
