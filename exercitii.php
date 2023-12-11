@@ -23,9 +23,7 @@
         $page=1;
     }
 
-    $sql = "select * from exercitii";
 
-    $exercitii = $conn->query($sql);
     ?>
     <header>
         <img class="logo" src="assets/logo.png" alt="logo"/>
@@ -56,11 +54,11 @@
                 <li><a href="calculator.php">Calculator Calorii</a></li>
                 <li><a class="active" href="exercitii.php">Exercitii</a></li>
                 <?php if (!isset($_SESSION['loggedin'])){ ?>
-                    <li><button id="login" >Intra in cont<i class='bx bx-log-in'></i></button></li>
+                    <li><button id="login" >Intra in cont</button></li>
                 <?php 
                 } else{ ?>
                 <form action="destroy.php">
-                    <li><button type="submit">Iesi din cont<i class='bx bx-log-out' ></i></button></li>
+                    <li><button type="submit">Iesi din cont</button></li>
                 </form>
                 <?php }
                 ?>
@@ -72,11 +70,16 @@
             <?php if(isset($_SESSION["permission"]) && $_SESSION["permission"] == 1){ ?>
                 <button id="ex" class="retete__filter-button">Adauga un exercitiu<i class='bx bx-plus-circle'></i></button>
             <?php } ?>
-            <?php if(!isset($_SESSION['loggedin']) || $_SESSION['permission'] == 0){?>
+            <?php if(isset($_SESSION['loggedin']) && $_SESSION['permission'] == 0){?>
                 <button id="su" class="retete__filter-button">Propune un exercitiu<i class='bx bx-plus-circle'></i></button>
             <?php } ?>
-            <form class="retete__filter-search" method="GET" action="">
-                <input id="search" type="text" name="search" value="" placeholder="Cauta un exercitiu">
+            <?php if(!isset($_SESSION['loggedin'])){ ?>
+            <div class="retete__filter-nolog">
+                <p>Intrati in cont pentru a putea sugera exercitii</p>
+            </div>
+            <?php } ?>
+            <form class="retete__filter-search" method="POST" action="searchex.php">
+                <input id="search" type="text" name="search" placeholder="Cauta un exercitiu">
                 <button type="submit">Cauta</button>
             </form>
             <?php if(isset($_SESSION["permission"]) && $_SESSION["permission"] == 1){ ?>
@@ -85,16 +88,38 @@
         </div>
         <div class="retete__content">
         <?php
-        while ($row = mysqli_fetch_assoc($exercitii)){
-        ?>
-            <div class="retete__content-reteta">
-                <div class="reteta-titlu"><h1><?php echo $row["titlu"];?></h1></div>
-                <div class="reteta-descriere"><p><?php echo str_repeat('&nbsp;', 5); echo $row["descriere"];?></p></div>
-                <iframe width="420" height="315"
-                    src=<?php echo $row["link"]?>>
-                </iframe>
-            </div>
-        <?php
+        if(!isset($_GET['search'])){
+            $sql = "select * from exercitii";
+
+            $exercitii = $conn->query($sql);
+            while ($row = mysqli_fetch_assoc($exercitii)){
+            ?>
+                <div class="retete__content-reteta">
+                    <div class="reteta-titlu"><h1><?php echo $row["titlu"];?></h1></div>
+                    <div class="reteta-descriere"><p><?php echo str_repeat('&nbsp;', 5); echo $row["descriere"];?></p></div>
+                    <iframe width="420" height="315"
+                        src=<?php echo $row["link"]?>>
+                    </iframe>
+                </div>
+            <?php
+            }
+        }
+        else{
+            $search = $_GET['search'];
+            $sql = "SELECT * FROM exercitii WHERE titlu LIKE '%$search%'";
+
+            $exercitii = $conn->query($sql);
+            while ($row = mysqli_fetch_assoc($exercitii)){
+                ?>
+                    <div class="retete__content-reteta">
+                        <div class="reteta-titlu"><h1><?php echo $row["titlu"];?></h1></div>
+                        <div class="reteta-descriere"><p><?php echo str_repeat('&nbsp;', 5); echo $row["descriere"];?></p></div>
+                        <iframe width="420" height="315"
+                            src=<?php echo $row["link"]?>>
+                        </iframe>
+                    </div>
+                <?php
+                }
         }
         $conn->close();
         
@@ -128,7 +153,7 @@
                 location.href = 'vizsu.php';
             }
         <?php } ?>
-        <?php if(!isset($_SESSION['loggedin']) || $_SESSION['permission'] == 0){?>
+        <?php if(isset($_SESSION['loggedin']) && $_SESSION['permission'] == 0){?>
             document.getElementById("su").onclick=func3;
             function func3(){
                 location.href = 'newexsu.php';
