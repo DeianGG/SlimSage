@@ -21,9 +21,7 @@
         $page=1;
     }
 
-    $sql = "select * from retete";
-
-    $retete = $conn->query($sql);
+    
     ?>
     <header>
         <img class="logo" src="assets/logo.png" alt="logo"/>
@@ -54,11 +52,11 @@
                 <li><a href="calculator.php">Calculator Calorii</a></li>
                 <li><a href="exercitii.php">Exercitii</a></li>
                 <?php if (!isset($_SESSION['loggedin'])){ ?>
-                    <li><button id="login" >Intra in cont<i class='bx bx-log-in'></i></button></li>
+                    <li><button id="login" >Intra in cont</button></li>
                 <?php 
                 } else{ ?>
                 <form action="destroy.php">
-                    <li><button type="submit">Iesi din cont<i class='bx bx-log-out' ></i></button></li>
+                    <li><button type="submit">Iesi din cont</button></li>
                 </form>
                 <?php }
                 ?>
@@ -74,21 +72,41 @@
                 <p>Intrati in cont pentru a putea posta retete</p>
             </div>
             <?php } ?>
-            <form class="retete__filter-search" method="GET" action="">
-                <input id="search" type="text" name="search" value="" placeholder="Cauta o reteta">
+            <form class="retete__filter-search" method="POST" action="searchreteta.php">
+                <input id="search" type="text" name="search" placeholder="Cauta o reteta">
                 <button type="submit">Cauta</button>
             </form>
         </div>
         <div class="retete__content">
         <?php
-        while ($row = mysqli_fetch_assoc($retete)){
-        ?>
-            <div class="retete__content-reteta">
-                <div class="reteta-titlu"><h1><?php echo $row["Titlu"];?></h1></div>
-                <div class="reteta-descriere"><p><?php echo str_repeat('&nbsp;', 5); echo $row["Descriere"];?></p></div>
-                <img src="<?php echo $row["Poza"];?>"/>
-            </div>
-        <?php
+        if(!isset($_GET['search'])){
+            $sql = "select * from retete";
+
+            $retete = $conn->query($sql);
+            while ($row = mysqli_fetch_assoc($retete)){
+            ?>
+                <div class="retete__content-reteta">
+                    <div class="reteta-titlu"><h1><?php echo $row["Titlu"];?></h1></div>
+                    <div class="reteta-descriere"><p><?php echo str_repeat('&nbsp;', 5); echo $row["Descriere"];?></p></div>
+                    <img src="<?php echo $row["Poza"];?>"/>
+                </div>
+            <?php
+            }
+        }
+        else{
+            $search = $_GET['search'];
+            $sql = "SELECT * FROM retete WHERE Titlu LIKE '%$search%'";
+
+            $retete = $conn->query($sql);
+            while ($row = mysqli_fetch_assoc($retete)){
+                ?>
+                    <div class="retete__content-reteta">
+                        <div class="reteta-titlu"><h1><?php echo $row["Titlu"];?></h1></div>
+                        <div class="reteta-descriere"><p><?php echo str_repeat('&nbsp;', 5); echo $row["Descriere"];?></p></div>
+                        <img src="<?php echo $row["Poza"];?>"/>
+                    </div>
+                <?php
+            }
         }
         $conn->close();
         
