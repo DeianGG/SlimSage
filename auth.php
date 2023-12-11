@@ -27,6 +27,12 @@ if (isset($_POST['login-submit'])){
                 $_SESSION['loggedin']=true;
                 $_SESSION['email']=$row['email'];
                 $_SESSION['permission']=$row['permission'];
+                if($row['verified']==1){
+                    $_SESSION['verified']=true;
+                }
+                else{
+                    $_SESSION['verified']=false;
+                }
                 header("Location: index.php?login=success");
                 exit();
             }
