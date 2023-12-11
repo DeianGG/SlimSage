@@ -86,11 +86,13 @@
         </div>
     </footer>
     <script>
-        document.getElementById("logind").onclick = func;
-        document.getElementById('login').onclick = func;
+        <?php if(!isset($_SESSION['loggedin'])){ ?>
+        document.getElementById("login").onclick = func;
+        document.getElementById('logind').onclick = func;
         function func() {
             location.href = 'login.php';
         };
+        <?php } ?>
         const toggleBtn = document.querySelector('.menu-mobile-img');
         const dropDownMenu = document.querySelector('.menu-mobile');
 
