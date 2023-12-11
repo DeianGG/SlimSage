@@ -178,6 +178,9 @@ header{
     .nutritiealim{
         flex-direction: column!important;
     }
+    #vizsu{
+        border-radius: 0px!important;
+    }
 }
 .calculator{
     background-color: var(--secundary_color2);
@@ -327,6 +330,73 @@ header{
 .hero__text button:hover{
     background-color: var(--buttons_secundary-hover);
 }
+.home_content{
+    margin: 0px;
+    padding: 2rem 0;
+    background-color: var(--secundary_color2);
+}
+main {
+    width: min(1200px, 95vw);
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+  }
+
+  .info-section {
+    margin-bottom: 20px;
+  }
+
+  .info-section h2 {
+    color: #4CAF50;
+  }
+
+  .info-section p {
+    line-height: 1.5;
+  }
+
+  .info-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .info-section li {
+    padding: 5px 0;
+  }
+  .grasime-section {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  .grasime-section h2 {
+    color: #4CAF50;
+  }
+
+  .grasime-section p {
+    line-height: 1.5;
+  }
+  .grasime-section ul li{
+    margin-left: 1rem;
+  }
+
+  .solutii-section {
+    background-color: #f2f2f2;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  .solutii-section h2 {
+    color: #4CAF50;
+  }
+
+  .solutii-section p {
+    line-height: 1.5;
+  }
+  .solutii-section ul li{
+    margin-left: 1rem;
+  }
 .retete{
     display: flex;
     width: 100%;
@@ -474,6 +544,11 @@ header{
     border-radius: 10px;
     padding: 30px 40px;
     margin-top: 5%;
+}
+
+#verify-status{
+    text-align: center;
+    color: #87e274;
 }
 
 .wrapper h1{
@@ -641,9 +716,16 @@ header{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: min(700px, 80vh);
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+.sugestii-list form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .sugestii-list h1{
     margin-top: 1.5rem;
@@ -656,6 +738,8 @@ header{
     text-align: center;
 }
 .accref{
+    margin: 1rem 0;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
 }
@@ -732,7 +816,8 @@ header{
     align-items: center;
 }
 .main-section {
-    max-width: 800px;
+    height: fit-content;
+    width: max(800px, 90vw);
     padding: 1.5rem;
     background-color: #ffffff;
     box-shadow: 0 10px 5px 0 rgba(0, 0, 0, 0.1);
@@ -771,9 +856,10 @@ header{
 .nutritiealim{
     display: flex;
     justify-content: center;
-    height: min(500px, 200vw);
+    height: fit-content;
 }
 .nutritiealim__container {
+    height: fit-content;
     flex: 1;
     width: min(600px, 95vw);
     margin: 2rem auto;
@@ -855,9 +941,15 @@ footer{
     justify-content: center;
     list-style: none;
 }
+.footer__container-nav ul li{
+    display: flex;
+    align-items: center;
+}
 .footer__container-nav ul li a{
+    flex: 1;
+    text-align: center;
     color:#fff;
-    margin: min(30px, 5vw);
+    margin: 0 max(3vw, 0.5rem);
     text-decoration: none;
     font-size: clamp(.5rem, 2vw + .5rem, 1rem);
     opacity: 0.7;
