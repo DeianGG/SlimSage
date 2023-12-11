@@ -40,11 +40,11 @@
                 <li><a class="active" href="calculator.php">Calculator Calorii</a></li>
                 <li><a href="exercitii.php">Exercitii</a></li>
                 <?php if (!isset($_SESSION['loggedin'])){ ?>
-                    <li><button id="login" >Intra in cont<i class='bx bx-log-in'></i></button></li>
+                    <li><button id="login" >Intra in cont</button></li>
                     <?php 
                     } else{ ?>
                     <form action="destroy.php">
-                        <li><button type="submit">Iesi din cont<i class='bx bx-log-out' ></i></button></li>
+                        <li><button type="submit">Iesi din cont</button></li>
                     </form>
                     <?php }
                 ?>
